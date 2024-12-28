@@ -1,0 +1,91 @@
+@mixin section {
+  width: 80%;
+  margin: 20px auto 0 auto;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 2px solid #00000084;
+  border-radius: 10px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.556);
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.user-form-add {
+  @include section;
+
+  label {
+    display: block;
+    color: white;
+    font-size: large;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+
+  button {
+    margin: 20px 0;
+    height: 35px;
+  }
+
+  :last-child {
+    margin-bottom: 15px;
+  }
+}
+
+.users {
+  @include section;
+
+  h1 {
+    font-size: 3em;
+    padding: 0;
+    margin: 10px 0;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .user {
+    border: 1px black solid;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.33);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .user-name {
+    font-size: 2em;
+    margin: 0;
+  }
+
+  .user-email,
+  .user-phone {
+    margin: 10px;
+    color: rgba(255, 255, 255, 0.641);
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+
+    .delete-btn {
+      width: 100px;
+      height: 30px;
+      margin-bottom: 5px;
+    }
+
+    .edit-btn {
+      height: 30px;
+    }
+  }
+}

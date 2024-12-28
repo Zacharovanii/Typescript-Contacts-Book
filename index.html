@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <main id="app">
+      <section class="user-form-add">
+        <label for="name"> Name: </label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email"> Email </label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="tel"> Phone number </label>
+        <input type="tel" id="tel" name="tel" required />
+
+        <button type="submit" id="form-btn">Add contact</button>
+      </section>
+
+      <section class="users">
+        <h1>Users</h1>
+        <div class="user">
+          <div class="contact">
+            <p class="user-name">Example User</p>
+
+            <div class="user-info">
+              <p class="user-email">example@email.com</p>
+              <p class="user-phone">+79998887766</p>
+            </div>
+          </div>
+          <div class="buttons">
+            <button class="delete-btn" type="button" name="-1">Delete</button>
+            <button class="edit-btn" type="button" name="-1">Edit</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
