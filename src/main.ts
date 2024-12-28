@@ -15,9 +15,28 @@ const nameInput: HTMLInputElement = formInputs[0];
 const emailInput: HTMLInputElement = formInputs[1];
 const phoneInput: HTMLInputElement = formInputs[2];
 
+const addContactBTN = document.querySelector<HTMLButtonElement>("#form-btn");
+const editContactBTN =
+  document.querySelector<HTMLButtonElement>("#form-btn-edit");
+
 const usersContainer = document.querySelector<HTMLDivElement>(".users");
 
 let users: users = readUsers();
+let currentEditingUser: IUser;
+
+function changeToEditMode(): void {
+  if (addContactBTN && editContactBTN) {
+    addContactBTN.className = "hide";
+    editContactBTN.className = "";
+  }
+}
+
+function changeToAddMode(): void {
+  if (addContactBTN && editContactBTN) {
+    addContactBTN.className = "";
+    editContactBTN.className = "hide";
+  }
+}
 
 function readUsers(): users {
   const savedUsers: string | null = localStorage.getItem("users");
@@ -53,9 +72,15 @@ function getNewContactHTML({ id, name, email, phone }: IUser): HTMLDivElement {
             <button class="edit-btn" type="button" data-id=${id}>Edit</button>
           </div>
         `;
+
   newContactHTML
     .querySelector<HTMLButtonElement>(".delete-btn")
     ?.addEventListener("click", deleteContact);
+
+  newContactHTML
+    .querySelector<HTMLButtonElement>(".edit-btn")
+    ?.addEventListener("click", editContact);
+
   return newContactHTML;
 }
 
@@ -67,6 +92,32 @@ function renderUsers(): void {
       usersContainer?.appendChild(renderedUser);
     }
   }
+}
+
+function editContact(e: MouseEvent): void {
+  const { dataset } = e.currentTarget as HTMLButtonElement;
+
+  if (dataset.id) {
+    const id: number = Number(dataset.id);
+    currentEditingUser = users.filter((item) => item.id === id)[0];
+
+    nameInput.value = currentEditingUser.name;
+    emailInput.value = currentEditingUser.email;
+    phoneInput.value = currentEditingUser.phone;
+
+    changeToEditMode();
+  }
+}
+
+function submitEdit(): void {
+  currentEditingUser.name = nameInput.value;
+  currentEditingUser.email = emailInput.value;
+  currentEditingUser.phone = phoneInput.value;
+
+  changeToAddMode();
+  renderUsers();
+  clearForm();
+  localStorage.setItem("users", JSON.stringify(users));
 }
 
 function createContact(): void {
@@ -99,4 +150,5 @@ function deleteContact(e: MouseEvent): void {
 }
 
 document.addEventListener("DOMContentLoaded", renderUsers);
-document.getElementById("form-btn")?.addEventListener("click", createContact);
+addContactBTN?.addEventListener("click", createContact);
+editContactBTN?.addEventListener("click", submitEdit);
